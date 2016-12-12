@@ -1,0 +1,123 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <title>本地缓存</title>
+        <link href="http://www.runoob.com/static/ionic/css/ionic.min.css" rel="stylesheet">
+        <script src="http://www.runoob.com/static/ionic/js/ionic.bundle.min.js"></script>
+        <style>
+                  body,.button {
+                                 cursor: url('http://www.runoob.com/static/img/finger.png'), auto;
+                                }
+        </style>
+        
+    </head>
+   
+    <body ng-app="myapp" ng-controller="myController">
+ 
+               <div >
+                    <input type="text" name="" id="" value=""   />
+                    <button ng-click ="newTask()">增加</button>
+                    <button ng-click ="clearCah()">清除缓存</button>
+                    <ul>
+                    	<li ng-repeat="x in people">
+                    		{{x.title}}
+                    	
+                    	</li>
+                    </ul>
+               </div>
+
+<script id="my-popover.html" type="text/ng-template">
+
+      <div class="modal">
+
+        <!-- Modal header bar -->
+        <ion-header-bar class="bar-secondary">
+          <h1 class="title">New Task</h1>
+          <button class="button button-clear button-positive" ng-click="closeNewTask()">Cancel</button>
+        </ion-header-bar>
+         <ion-content>
+
+          <form ng-submit="createTask(task)">
+            <div class="list">
+              <label class="item item-input">
+                <input type="text" placeholder="What do you need to do?" ng-model="task.title" >
+              </label>
+            </div>
+            <div class="padding">
+              <button type="submit" class="button button-block button-positive">Create Task</button>
+            </div>
+          </form>
+
+        </ion-content>
+
+
+      </div>
+
+    </script>
+    <script type="text/javascript">
+                         angular.module("myapp",['ionic'])
+                         
+                         .controller("myController",function($scope,$ionicModal){
+                         	
+                         	$scope.people = [{title:""}];
+                         	var projectString = window.localStorage['projects'];
+                         	if(projectString) {
+                                                $scope.people=  angular.fromJson(projectString);
+                                                  }
+                         	 
+                         	//$scope.people = [{title:"1111"} ];
+                         	
+                         
+                      
+                      
+                          $ionicModal.fromTemplateUrl('my-popover.html', function(modal) {
+                                          $scope.taskModal = modal;
+                                                           }, {
+                                                                scope: $scope
+                                                                    });
+                            
+//                       	$scope.newTask =function(){
+//                       		     var t = prompt("shuru","");
+//                       		     name1 ={title:t}
+//                       		     if(t!=""||t!=null){
+//                       		     	
+//                       		     	$scope.people.push(name1);
+//                       		     	window.localStorage['projects'] = angular.toJson($scope.people);
+//                       		     }
+//                       	}
+                         	
+                         	$scope.newTask =function(){
+                         		
+                         		 $scope.taskModal.show();
+                         		
+                         	}
+                         	
+                         	$scope.closeNewTask =function(){
+                         		$scope.taskModal.hide();
+                         		
+                         	}
+                         	
+                         	$scope.createTask =function(task){
+                         		
+                         		name1 ={title:task.title}
+                         		$scope.people.push(name1);
+                         		window.localStorage['projects'] = angular.toJson($scope.people);
+                         		task.title ="";
+                         	   $scope.taskModal.hide();
+                         	   
+                         	}
+                         	
+                         	$scope.clearCah = function(){
+                         		window.localStorage.clear();
+                         		$scope.people = [{title:""}];
+                         		
+                         	}
+                         	
+                         })
+       
+        </script>
+
+
+</body>
+</html>
