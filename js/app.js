@@ -2,10 +2,10 @@ angular.module('todo', ['ionic'])
 
 .controller('TodoCtrl', function($scope, $ionicModal) {
   $scope.tasks = [
-    { title: '菜鸟教程' },
-    { title: 'www.runoob.com' },
-    { title: '菜鸟教程' },
-    { title: 'www.runoob.com' }
+    { title: '学无止境' },
+    { title: '好好学习' },
+    { title: '天天向上' },
+    { title: '天外有天' }
   ];
 
   // 创建并载入模型
