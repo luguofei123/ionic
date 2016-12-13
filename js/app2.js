@@ -1,9 +1,5 @@
 angular.module('todo', ['ionic'])
-/**
- * The Projects factory handles saving and loading projects
- * from local storage, and also lets us save and load the
- * last active project index.
- */
+
 .factory('Projects', function() {
   return {
     all: function() {
@@ -100,10 +96,7 @@ angular.module('todo', ['ionic'])
   };
 
 
-  // Try to create the first project, make sure to defer
-  // this by using $timeout so everything is initialized
-  // properly
-  //$timeout(function() {
+  $timeout(function() {
     if($scope.projects.length == 0) {
       while(true) {
         var projectTitle = prompt('Your first project title:');
@@ -113,6 +106,6 @@ angular.module('todo', ['ionic'])
         }
       }
     }
-  //});
+  });
 
 });
